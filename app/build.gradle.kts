@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.lchristmann.tracker"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.lchristmann.tracker"
