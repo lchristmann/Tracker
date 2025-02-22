@@ -66,6 +66,7 @@ fun LocationDisplay(
                 // I have access to location
 
                 locationUtils.requestLocationUpdates(viewModel = viewModel)
+                viewModel.startTracking()
             } else {
                 // rationaleRequire holds whether we should show why we want permission or not
                 val rationaleRequired = ActivityCompat.shouldShowRequestPermissionRationale(
@@ -100,22 +101,34 @@ fun LocationDisplay(
             Text(text = "Location not available")
         }
 
-
-        Button(onClick = {
-            if (locationUtils.hasLocationPermission(context)) {
-                // Permission already granted, update the location
-                locationUtils.requestLocationUpdates((viewModel))
-            } else {
-                // Request location permission
-                requestPermissionLauncher.launch(
-                    arrayOf(
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION
-                    )
-                )
+        // If tracking is activate, show the "Stop Tracking" button
+        if (viewModel.isTracking.value) {
+            Button(onClick = {
+                locationUtils.stopLocationUpdates()
+                viewModel.stopTracking()
+            }) {
+                Text(text = "Stop Tracking")
             }
-        }) {
-            Text(text = "Get Location")
+        // Else show the "Start Tracking" button
+        } else {
+            Button(onClick = {
+                if (locationUtils.hasLocationPermission(context)) {
+                    // Permission already granted, update the location
+                    locationUtils.requestLocationUpdates(viewModel = viewModel)
+                    viewModel.startTracking()
+                } else {
+                    // Request location permission
+                    requestPermissionLauncher.launch(
+                        arrayOf(
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION
+                        )
+                    )
+                }
+            }) {
+                Text(text = "Start Tracking")
+            }
         }
+
     }
 }
