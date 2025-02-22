@@ -7,7 +7,7 @@ This is an Open Source Android Application, that lets you
 
 The app is embedded in a larger system, that can receive and visualize the location data in real-time.
 
-![System Architecture](cloud-architecture.drawio.svg)
+![System Architecture](system-architecture.drawio.svg)
 
 ## How does the Location Tracking work
 
