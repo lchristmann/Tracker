@@ -1,5 +1,7 @@
 # Tracker - An Android App
 
+<img style="float: right; margin-left: 12px;" src="app/src/main/res/mipmap-xhdpi/ic_launcher.png">
+
 This is an Open Source Android Application, that lets you
 
 - track your location with your Android phone and 
