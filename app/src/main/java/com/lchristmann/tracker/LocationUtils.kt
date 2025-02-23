@@ -13,7 +13,7 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 
-class LocationUtils(val context: Context) {
+class LocationUtils(context: Context) {
 
     private val _fusedLocationClient: FusedLocationProviderClient
             = LocationServices.getFusedLocationProviderClient(context)
@@ -33,7 +33,7 @@ class LocationUtils(val context: Context) {
         }
 
         val locationRequest = LocationRequest.Builder(
-            Priority.PRIORITY_HIGH_ACCURACY, 1000).build()
+            Priority.PRIORITY_LOW_POWER, 10_000).build()
 
         _fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback!!, Looper.getMainLooper())
     }
