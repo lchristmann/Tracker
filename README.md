@@ -5,9 +5,17 @@ This is an Open Source Android Application, that lets you
 - track your location with your Android phone and 
 - send that data over the Internet to a remote API
 
-The app is embedded in a larger system, that can receive and visualize the location data in real-time.
+The app is embedded in a larger system, that can receive and visualize the location data in near real-time.
 
 ![System Architecture](system-architecture.drawio.svg)
+
+## The App's Architecture
+
+The app uses the [MVVM (Model View ViewModel) Architecture Pattern in Android](https://www.geeksforgeeks.org/mvvm-model-view-viewmodel-architecture-pattern-in-android/) for structure (that's the top half of the diagram).
+
+The database part is implemented with the recommended [Room database persistency library using the Repository pattern](https://medium.com/swlh/basic-implementation-of-room-database-with-repository-and-viewmodel-android-jetpack-8945b364d322) that [provides a powerful abstraction layer over SQLite](https://developer.android.com/training/data-storage/room).
+
+![App Architecture](app-architecture.drawio.svg)
 
 ## How does the Location Tracking work
 
@@ -17,7 +25,7 @@ The location tracking works by utilizing the [Fused Location Provider API](https
 
 As shown by default this uses Google Play Services, but for the de-googled operating system eOS, this is replaced by [MicroG](https://community.e.foundation/t/discover-microg-and-what-it-is-used-for/43418, which is an open source implementation of the Google Play Services.
 
-## The Details
+## Details
 
 The app tracks the location every 10 minutes. (For development purposes, it is currently set to "every second".)
 
@@ -27,8 +35,6 @@ The app icon is currently configured [like this](https://icon.kitchen/i/H4sIAAAA
 
 ## Next Steps
 
-- start stop button for tracking
-- room database implementation
 - build the API
 - move the location measurements into the background
 - sync app data with API when Internet connection there
