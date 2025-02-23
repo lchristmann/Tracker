@@ -13,7 +13,7 @@ The app is embedded in a larger system, that can receive and visualize the locat
 
 The app uses the [MVVM (Model View ViewModel) Architecture Pattern in Android](https://www.geeksforgeeks.org/mvvm-model-view-viewmodel-architecture-pattern-in-android/) for structure (that's the top half of the diagram).
 
-The database part is implemented with the recommended [Room database persistency library using the Repository pattern](https://medium.com/swlh/basic-implementation-of-room-database-with-repository-and-viewmodel-android-jetpack-8945b364d322) that [provides a powerful abstraction layer over SQLite](https://developer.android.com/training/data-storage/room).
+The database part is implemented with the recommended [Room database persistency library using the Repository pattern](https://medium.com/swlh/basic-implementation-of-room-database-with-repository-and-viewmodel-android-jetpack-8945b364d322) that [provides a powerful abstraction layer over SQLite](https://developer.android.com/training/data-storage/room) (that's the bottom half).
 
 ![App Architecture](app-architecture.drawio.svg)
 
