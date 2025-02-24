@@ -11,6 +11,10 @@ The app is embedded in a larger system, that can receive and visualize the locat
 
 ![System Architecture](system-architecture.drawio.svg)
 
+The project for the API can be found here: [tracker-api-aws-lambda-function](https://github.com/lchristmann/tracker-api-aws-lambda-function) (left side of diagram)
+
+The project for the website can be found here: &lt;tbd&gt; (right side of diagram)
+
 ## The App's Architecture
 
 The app uses the [MVVM (Model View ViewModel) Architecture Pattern in Android](https://www.geeksforgeeks.org/mvvm-model-view-viewmodel-architecture-pattern-in-android/) for structure (that's the top half of the diagram).
@@ -39,14 +43,14 @@ The app icon is currently configured [like this](https://icon.kitchen/i/H4sIAAAA
 
 - use a new Android Studio with the new UI (made by JetBrains)
 - use Logcat, Build and App Inspection to get insights (bottom left bar)
-  - under App Inspection you'll have Database Inspection, too
+  - under App Inspection there's Database Inspection
     - have the "Keep database connections open" option selected there, so you can keep inspecting the database when the app has closed
+  - under App Inspection there's Background Task Inspector -> view my WorkManager Tasks and their status
 - when changing the LocationEntity (or in general the database schema), go into the Emulator device > Settings > Tracker (App) > Storage > Delete all storage (else the Room database will crash again and again, because it can't cope with the inconsistency of a changed schema)
 - for debugging SharedPreferences: you can go in the top right bar to "Device Manager" and then 3 dots > Open in Device Explorer > /data/data/com.lchristmann.tracker/shared_prefs/tracking_prefs.xml and download that file (there you can see the current value of `isTracking`)
 - `./gradlew clean build`, `./gradlew --version`, `./gradlew --warning-mode all`, `./gradlew build -stacktrace`
 
 ## Next Steps
 
-- build the API
 - sync app data with API when Internet connection there
 - build the website to track (with authentication)
