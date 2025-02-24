@@ -11,7 +11,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -20,9 +22,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.lchristmann.tracker.ui.theme.TrackerTheme
+import java.util.concurrent.TimeUnit
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +54,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MyApp(viewModel: LocationViewModel) {
     val context = LocalContext.current
-    val locationUtils = LocationUtils(context)
+    val locationUtils = LocationUtils()
     LocationDisplay(locationUtils = locationUtils, viewModel, context = context)
 }
 
@@ -56,16 +64,21 @@ fun LocationDisplay(
     viewModel: LocationViewModel,
     context: Context
 ) {
-    val location = viewModel.location.value
-
     val requestPermissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestMultiplePermissions(),
         onResult = { permissions ->
             if (permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true
                 && permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true) {
                 // I have access to location
-
-                locationUtils.requestLocationUpdates(viewModel = viewModel)
+                val locationWorkRequest = PeriodicWorkRequestBuilder<LocationWorker>(
+                    15, TimeUnit.MINUTES
+                ).build()
+                WorkManager.getInstance(context)
+                    .enqueueUniquePeriodicWork(
+                        "LocationTracking",
+                        ExistingPeriodicWorkPolicy.UPDATE,
+                        locationWorkRequest
+                    )
                 viewModel.startTracking()
             } else {
                 // rationaleRequire holds whether we should show why we want permission or not
@@ -95,26 +108,32 @@ fun LocationDisplay(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center) {
 
-        if (location != null) {
-            Text(text = "Address: ${location.latitude} ${location.longitude}")
-        } else {
-            Text(text = "Location not available")
-        }
-
-        // If tracking is activate, show the "Stop Tracking" button
+        // If tracking is active, show the "Stop Tracking" button
         if (viewModel.isTracking.value) {
+            Text(text = "Location is being tracked.")
+
             Button(onClick = {
-                locationUtils.stopLocationUpdates()
+                WorkManager.getInstance(context).cancelUniqueWork("LocationTracking")
                 viewModel.stopTracking()
             }) {
                 Text(text = "Stop Tracking")
             }
         // Else show the "Start Tracking" button
         } else {
+            Text(text = "Location is not tracked.")
+
             Button(onClick = {
                 if (locationUtils.hasLocationPermission(context)) {
-                    // Permission already granted, update the location
-                    locationUtils.requestLocationUpdates(viewModel = viewModel)
+                    // Permission already granted, activate the location tracking background work
+                    val locationWorkRequest = PeriodicWorkRequestBuilder<LocationWorker>(
+                        15, TimeUnit.MINUTES
+                    ).build()
+                    WorkManager.getInstance(context)
+                        .enqueueUniquePeriodicWork(
+                            "LocationTracking",
+                            ExistingPeriodicWorkPolicy.UPDATE,
+                            locationWorkRequest
+                        )
                     viewModel.startTracking()
                 } else {
                     // Request location permission
@@ -128,6 +147,27 @@ fun LocationDisplay(
             }) {
                 Text(text = "Start Tracking")
             }
+        }
+
+        // ADD: A separate button to test immediate tracking via OneTimeWorkRequest
+        Spacer(modifier = Modifier.height(32.dp))
+        Button(onClick = {
+            if (locationUtils.hasLocationPermission(context)) {
+                val oneTimeRequest = OneTimeWorkRequestBuilder<LocationWorker>()
+                    .setInitialDelay(20, TimeUnit.SECONDS) // Set a 20-second delay
+                    .build()
+                WorkManager.getInstance(context)
+                    .enqueue(oneTimeRequest)
+            } else {
+                requestPermissionLauncher.launch(
+                    arrayOf(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    )
+                )
+            }
+        }) {
+            Text(text = "Test Immediate Tracking with 20s Delay")
         }
 
     }

@@ -73,9 +73,11 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     // Room Database
-    val room_version = "2.6.1"
-    implementation("androidx.room:room-runtime:$room_version")
-    ksp("androidx.room:room-compiler:$room_version")
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
     // Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:$room_version")
+    implementation(libs.androidx.room.ktx)
+
+    // WorkManager Kotlin + coroutines
+    implementation(libs.androidx.work.runtime.ktx)
 }

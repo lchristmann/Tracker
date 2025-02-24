@@ -40,12 +40,13 @@ The app icon is currently configured [like this](https://icon.kitchen/i/H4sIAAAA
 - use a new Android Studio with the new UI (made by JetBrains)
 - use Logcat, Build and App Inspection to get insights (bottom left bar)
   - under App Inspection you'll have Database Inspection, too
+    - have the "Keep database connections open" option selected there, so you can keep inspecting the database when the app has closed
 - when changing the LocationEntity (or in general the database schema), go into the Emulator device > Settings > Tracker (App) > Storage > Delete all storage (else the Room database will crash again and again, because it can't cope with the inconsistency of a changed schema)
+- for debugging SharedPreferences: you can go in the top right bar to "Device Manager" and then 3 dots > Open in Device Explorer > /data/data/com.lchristmann.tracker/shared_prefs/tracking_prefs.xml and download that file (there you can see the current value of `isTracking`)
 - `./gradlew clean build`, `./gradlew --version`, `./gradlew --warning-mode all`, `./gradlew build -stacktrace`
 
 ## Next Steps
 
 - build the API
-- move the location measurements into the background
 - sync app data with API when Internet connection there
 - build the website to track (with authentication)
