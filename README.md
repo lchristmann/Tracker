@@ -13,7 +13,7 @@ The app is embedded in a larger system, that can receive and visualize the locat
 
 The project for the API can be found here: [tracker-api-aws-lambda-function](https://github.com/lchristmann/tracker-api-aws-lambda-function) (left side of diagram)
 
-The project for the website can be found here: &lt;tbd&gt; (right side of diagram)
+The project for the website can be found here: [tracker-website](https://github.com/lchristmann/tracker-website) (right side of diagram)
 
 ## The App's Architecture
 
@@ -52,5 +52,4 @@ The app icon is currently configured [like this](https://icon.kitchen/i/H4sIAAAA
 
 ## Next Steps
 
-- sync app data with API when Internet connection there
-- build the website to track (with authentication)
+- sync app data with API when Internet connection is available (probably use the [Retrofit](https://square.github.io/retrofit/) HTTP client)
