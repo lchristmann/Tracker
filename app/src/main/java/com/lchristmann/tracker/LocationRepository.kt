@@ -6,4 +6,12 @@ class LocationRepository(private val locationDao: LocationDao) {
         locationDao.insertLocation(location)
     }
 
+    suspend fun getUnsyncedLocations(): List<LocationEntity> {
+        return locationDao.getUnsyncedLocations()
+    }
+
+    suspend fun markLocationSynced(id: Int) {
+        locationDao.markLocationSynced(id)
+    }
+
 }

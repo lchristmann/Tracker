@@ -3,6 +3,7 @@ package com.lchristmann.tracker
 import android.Manifest
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -36,6 +37,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        Log.d("API_KEY", BuildConfig.API_KEY)
         setContent {
             val viewModel: LocationViewModel = viewModel()
             TrackerTheme {

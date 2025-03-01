@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -19,6 +21,9 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        val apiKey: String = gradleLocalProperties(rootDir, providers).getProperty("API_KEY")
+        buildConfigField("String", "API_KEY", "\"${apiKey}\"")
     }
 
     buildTypes {
@@ -39,6 +44,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -80,4 +86,8 @@ dependencies {
 
     // WorkManager Kotlin + coroutines
     implementation(libs.androidx.work.runtime.ktx)
+
+    // Retrofit with Gson Converter for JSON
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 }

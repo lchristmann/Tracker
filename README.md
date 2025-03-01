@@ -1,6 +1,6 @@
 # Tracker - An Android App
 
-<img style="float: right; margin-left: 12px;" src="app/src/main/res/mipmap-xhdpi/ic_launcher.png">
+<img alt="Tracker App Icon" style="float: right; margin-left: 12px;" src="app/src/main/res/mipmap-xhdpi/ic_launcher.png">
 
 This is an Open Source Android Application, that lets you
 
@@ -40,6 +40,12 @@ The app tracks the location every 10 minutes. (For development purposes, it is c
 The app icon is currently configured [like this](https://icon.kitchen/i/H4sIAAAAAAAAAzWQMY%2FDIAyF%2F4tvzcI1WbJ2uPWk63Y6nSA2BJXEKZBWVdX%2FXjttFzAffu%2BBb3C2aaUC%2FQ3Q5uNhpImg9zYVasCFPSfO0MPHznfGddCAD%2FsUF5urSgrJBkjerqnKZRx4FuAn%2FA%2FMCHftP1wXsYThJVPbFwrZYqT5yb7eB%2FEdNNZobmvQeC8NG%2FpU5HDXehJk55DEpu22mG%2BLGOeg8soL9KZtIMcwiqGWjmvl6Vkn8hsVnQs%2Fo90eU05rzIMYCp0Y16RT%2BZUQzBxRP8dF1gs5%2BLs%2FAFGiSo84AQAA) thanks to the [IconKitchen App Icon Generator](https://icon.kitchen).
 
 ## Development Notes
+
+- add the API_KEY for the Tracker API to your `local.properties` file as shown below.<br>The implementation was done following Philipp Lackner's tutorial [How to Hide & Protect API Keys in Your Android App](https://www.youtube.com/watch?v=-2ckvIzs0nU) and this Medium article [How to safely store API keys in Android project](https://medium.com/@darayve/how-to-safely-store-api-keys-in-android-project-a-straightforward-guide-22c7fffd95e7).
+
+```text
+API_KEY=api-key-here
+```
 
 - use a new Android Studio with the new UI (made by JetBrains)
 - use Logcat, Build and App Inspection to get insights (bottom left bar)
