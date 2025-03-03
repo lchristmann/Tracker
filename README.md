@@ -15,6 +15,13 @@ The project for the API can be found here: [tracker-api-aws-lambda-function](htt
 
 The project for the website can be found here: [tracker-website](https://github.com/lchristmann/tracker-website) (right side of diagram)
 
+> Platform requirements: API-level 29, i.e. Android 10 (released in September 2019) or newer.
+>
+> **Usage of the application:**
+> - when prompted, grant permissions for location and when forwarded to the Settings, **for location select "Allow all the time"** for background tracking to work.
+> - grant both coarse and fine location
+> - **uncheck the "Pause app activity if unused"** - just to be sure
+
 ## The App's Architecture
 
 The app uses the [MVVM (Model View ViewModel) Architecture Pattern in Android](https://www.geeksforgeeks.org/mvvm-model-view-viewmodel-architecture-pattern-in-android/) for structure (that's the top half of the diagram).

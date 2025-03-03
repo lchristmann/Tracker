@@ -37,7 +37,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        Log.d("API_KEY", BuildConfig.API_KEY)
         setContent {
             val viewModel: LocationViewModel = viewModel()
             TrackerTheme {
@@ -79,16 +78,37 @@ fun LocationDisplay(
         viewModel.startTracking()
     }
 
-    // Request permissions: in case we get them enqueue LocationTracking work, else explain why they're necessary
+    // Launcher for background permission
+    val backgroundPermissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission(),
+        onResult = { granted: Boolean ->
+            if (granted) {
+                enqueueLocationTrackingWork()
+            } else {
+                // For Android 11+ this permission typically directs users to settings.
+                Toast.makeText(
+                    context,
+                    "Background location permission is required. Please enable it in Settings.",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+    )
+
+    // Launcher for foreground permissions (Fine and Coarse)
     val requestPermissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestMultiplePermissions(),
         onResult = { permissions ->
             if (permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true
                 && permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true) {
-                // I have access to location
-                enqueueLocationTrackingWork()
+                // Foreground permissions granted, now check background permission.
+                if (locationUtils.hasBackgroundLocationPermission(context)) {
+                    enqueueLocationTrackingWork()
+                } else {
+                    backgroundPermissionLauncher.launch(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+                }
             } else {
-                // Show rationale why we want the permissions if required
+                // Explain why permissions are necessary
                 val rationaleRequired = ActivityCompat.shouldShowRequestPermissionRationale(
                     context as MainActivity,
                     Manifest.permission.ACCESS_FINE_LOCATION
@@ -125,7 +145,7 @@ fun LocationDisplay(
         } else {
             Text(text = "Location is not tracked.")
             Button(onClick = {
-                if (locationUtils.hasLocationPermission(context)) {
+                if (locationUtils.hasLocationPermission(context) && locationUtils.hasBackgroundLocationPermission(context)) {
                     enqueueLocationTrackingWork()
                 } else {
                     requestPermissionLauncher.launch(
@@ -141,7 +161,8 @@ fun LocationDisplay(
         Spacer(modifier = Modifier.height(32.dp))
         // A button to do a single tracking action after a 20s delay
         Button(onClick = {
-            if (locationUtils.hasLocationPermission(context)) {
+            Log.d("MainActivity.kt", "Tracking with 20s Delay scheduled")
+            if (locationUtils.hasLocationPermission(context) && locationUtils.hasBackgroundLocationPermission(context)) {
                 val oneTimeRequest = OneTimeWorkRequestBuilder<LocationWorker>()
                     .setInitialDelay(20, TimeUnit.SECONDS)
                     .build()
