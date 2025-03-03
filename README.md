@@ -63,6 +63,9 @@ API_KEY=api-key-here
 - for debugging SharedPreferences: you can go in the top right bar to "Device Manager" and then 3 dots > Open in Device Explorer > /data/data/com.lchristmann.tracker/shared_prefs/tracking_prefs.xml and download that file (there you can see the current value of `isTracking`)
 - `./gradlew clean build`, `./gradlew --version`, `./gradlew --warning-mode all`, `./gradlew build -stacktrace`
 
-## Next Steps
+## Release
 
-- sync app data with API when Internet connection is available (probably use the [Retrofit](https://square.github.io/retrofit/) HTTP client)
+1. In Android Studio click on "Build" > "Build App Bundle(s) / APK(s)" > "Build APK(s)".
+2. Once done, a notification will appear saying: "Build completed successfully for 1 module: Module 'Tracker.app': locate or analyze the APK." > click on "locate"
+
+That's the installable APK right there (in the `app/build/outputs/apk/debug/` folder).
