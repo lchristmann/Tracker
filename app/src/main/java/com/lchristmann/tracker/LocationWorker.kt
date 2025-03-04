@@ -75,11 +75,9 @@ class LocationWorker(
                             Log.d("LocationWorker", "Location ${locationEntity.id} uploaded and marked as synced")
                         } else {
                             Log.d("LocationWorker", "Failed to upload location ${locationEntity.id}: ${response.errorBody()?.string()}")
-                            return Result.retry()
                         }
                     } catch (e: Exception) {
                         Log.e("LocationWorker", "Error uploading location ${locationEntity.id}: ${e.message}")
-                        return Result.retry()
                     }
                 }
             } else {
@@ -89,7 +87,7 @@ class LocationWorker(
             Result.success()
         } else {
             Log.d("LocationWorker", "Location is null, retrying")
-            Result.retry()
+            Result.failure()
         }
     }
 
