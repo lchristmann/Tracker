@@ -161,7 +161,7 @@ fun LocationDisplay(
         Spacer(modifier = Modifier.height(32.dp))
         // A button to do a single tracking action after a 20s delay
         Button(onClick = {
-            Log.d("MainActivity.kt", "Track and upload once now")
+            Log.d("MainActivity.kt", "Track and upload once now clicked")
             if (locationUtils.hasLocationPermission(context) && locationUtils.hasBackgroundLocationPermission(context)) {
                 val oneTimeRequest = OneTimeWorkRequestBuilder<LocationWorker>().build()
                 WorkManager.getInstance(context).enqueue(oneTimeRequest)
@@ -173,7 +173,7 @@ fun LocationDisplay(
                     )
                 )
             }
-        }) { Text(text = "Test Immediate Tracking with 20s Delay") }
+        }) { Text(text = "Track and upload once now") }
 
     }
 }
