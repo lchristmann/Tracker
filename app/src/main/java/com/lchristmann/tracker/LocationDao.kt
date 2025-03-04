@@ -15,4 +15,7 @@ interface LocationDao {
 
     @Query("UPDATE location_table SET synced = 1 WHERE id = :id")
     suspend fun markLocationSynced(id: Int)
+
+    @Query("SELECT * FROM location_table ORDER BY id DESC LIMIT 50")
+    suspend fun getLastFiftyLocationsDesc(): List<LocationEntity>
 }

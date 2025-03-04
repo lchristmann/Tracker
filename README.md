@@ -59,7 +59,7 @@ API_KEY=api-key-here
   - under App Inspection there's Database Inspection
     - have the "Keep database connections open" option selected there, so you can keep inspecting the database when the app has closed
   - under App Inspection there's Background Task Inspector -> view my WorkManager Tasks and their status
-- when changing the LocationEntity (or in general the database schema), go into the Emulator device > Settings > Tracker (App) > Storage > Delete all storage (else the Room database will crash again and again, because it can't cope with the inconsistency of a changed schema)
+- when having changed the LocationEntity (or in general the database schema), you must go to the device's Settings > Tracker (App) > Storage > Delete all storage (else the Room database will crash again and again, because it can't cope with the inconsistency of a changed schema)
 - for debugging SharedPreferences: you can go in the top right bar to "Device Manager" and then 3 dots > Open in Device Explorer > /data/data/com.lchristmann.tracker/shared_prefs/tracking_prefs.xml and download that file (there you can see the current value of `isTracking`)
 - `./gradlew clean build`, `./gradlew --version`, `./gradlew --warning-mode all`, `./gradlew build -stacktrace`
 

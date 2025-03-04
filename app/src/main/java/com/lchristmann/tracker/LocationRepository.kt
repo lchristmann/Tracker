@@ -14,4 +14,8 @@ class LocationRepository(private val locationDao: LocationDao) {
         locationDao.markLocationSynced(id)
     }
 
+    suspend fun getLastFiftyLocationsDesc(): List<LocationEntity> {
+        return locationDao.getLastFiftyLocationsDesc()
+    }
+
 }

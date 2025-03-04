@@ -2,6 +2,7 @@ package com.lchristmann.tracker
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -137,7 +138,7 @@ fun LocationDisplay(
 
         // If tracking is active, show the "Stop Tracking" button, else show the "Start Tracking" button
         if (viewModel.isTracking.value) {
-            Text(text = "Location is being tracked.")
+            Text(text = "Location is tracked every 15 min.")
             Button(onClick = {
                 WorkManager.getInstance(context).cancelUniqueWork("LocationTracking")
                 viewModel.stopTracking()
@@ -158,10 +159,11 @@ fun LocationDisplay(
             }) { Text(text = "Start Tracking") }
         }
 
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(16.dp))
+
         // A button to do a single tracking action after a 20s delay
         Button(onClick = {
-            Log.d("MainActivity.kt", "Track and upload once now clicked")
+            Log.d("MainActivity.kt", "Track once now and upload all locations clicked")
             if (locationUtils.hasLocationPermission(context) && locationUtils.hasBackgroundLocationPermission(context)) {
                 val oneTimeRequest = OneTimeWorkRequestBuilder<LocationWorker>().build()
                 WorkManager.getInstance(context).enqueue(oneTimeRequest)
@@ -173,7 +175,13 @@ fun LocationDisplay(
                     )
                 )
             }
-        }) { Text(text = "Track and upload once now") }
+        }) { Text(text = "Track once now and upload all locations") }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Button(onClick = {
+            context.startActivity(Intent(context, LocationsActivity::class.java))
+        }) { Text(text = "Show tracked locations") }
 
     }
 }
