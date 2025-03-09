@@ -40,7 +40,14 @@ As shown by default this uses Google Play Services, but for the de-googled opera
 
 ## Details
 
-The app tracks the location every 10 minutes. (For development purposes, it is currently set to "every second".)
+The app tracks the location every 15 minutes in the background and tries to upload all locations that have not been uploaded yet on those occasions.
+
+There's also a button to track the location once immediately and try to upload all local locations.
+
+Then there are two activities ("screens") for visualization:
+
+- a list view of the last 50 tracked locations
+- a map view of the last 50 tracked locations (implemented with [OSMDroid](https://github.com/osmdroid/osmdroid), see [docs are here](https://github.com/osmdroid/osmdroid/wiki#kotlin))
 
 ### App Icon
 

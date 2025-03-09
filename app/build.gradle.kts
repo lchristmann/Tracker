@@ -90,4 +90,6 @@ dependencies {
     // Retrofit with Gson Converter for JSON
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
+
+    implementation(libs.osmdroid.android)
 }

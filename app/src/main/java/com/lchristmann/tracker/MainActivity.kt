@@ -181,7 +181,11 @@ fun LocationDisplay(
 
         Button(onClick = {
             context.startActivity(Intent(context, LocationsActivity::class.java))
-        }) { Text(text = "Show tracked locations") }
+        }) { Text(text = "Show tracked locations in list (last 50)") }
+
+        Button(onClick = {
+            context.startActivity(Intent(context, MapsActivity::class.java))
+        }) { Text(text = "Show tracked locations on map (last 50)") }
 
     }
 }
