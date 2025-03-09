@@ -5,12 +5,15 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ElevatedButton
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -101,19 +104,30 @@ fun HomeScreen() {
     )
 
     // --------------------------------- The UI of the App ---------------------------------
-    Column(modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center) {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally) {
+
+        // Info boxes
+        InfoBox(title = "Setup", description = "When prompted, give the app permission to access your location and select 'Allow always'.")
+        InfoBox(title = "Usage", description = """
+            Start and stop tracking as you like. You can completely close the app and tracking still works.
+            Internet is only needed for uploading locations and you can manually upload all via button.
+        """.trimIndent())
+        InfoBox(title = "Tracking", description = "When tracking is activated, every +/- 15 minutes your location is stored and if possible uploaded.")
+
+        Spacer(modifier = Modifier.height(48.dp))
 
         // If tracking is active, show the "Stop Tracking" button, else show the "Start Tracking" button
         if (viewModel.isTracking.value) {
-            Text(text = "Location is tracked every 15 min.")
-            Button(onClick = {
-                WorkManager.getInstance(context).cancelUniqueWork("LocationTracking")
-                viewModel.stopTracking()
-            }) { Text(text = "Stop Tracking") }
+            OutlinedButton(
+                onClick = {
+                    WorkManager.getInstance(context).cancelUniqueWork("LocationTracking")
+                    viewModel.stopTracking()
+                },
+                modifier = Modifier.height(56.dp)) { Text(text = "Stop Tracking") }
         } else {
-            Text(text = "Location is not tracked.")
             Button(onClick = {
                 if (locationUtils.hasLocationPermission(context) && locationUtils.hasBackgroundLocationPermission(context)) {
                     enqueueLocationTrackingWork()
@@ -125,13 +139,13 @@ fun HomeScreen() {
                         )
                     )
                 }
-            }) { Text(text = "Start Tracking") }
+            },
+            modifier = Modifier.height(56.dp)) { Text(text = "Start Tracking") }
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(36.dp))
 
-        // A button to do a single tracking action after a 20s delay
-        Button(onClick = {
+        ElevatedButton(onClick = {
             Log.d("MainActivity.kt", "Track once now and upload all locations clicked")
             if (locationUtils.hasLocationPermission(context) && locationUtils.hasBackgroundLocationPermission(context)) {
                 val oneTimeRequest = OneTimeWorkRequestBuilder<LocationWorker>().build()
@@ -144,7 +158,8 @@ fun HomeScreen() {
                     )
                 )
             }
-        }) { Text(text = "Track once now and upload all locations") }
-
+        },
+        elevation = ButtonDefaults.elevatedButtonElevation(defaultElevation = 2.dp),
+        modifier = Modifier.height(72.dp)) { Text(text = "Track once now and\nupload all locations") }
     }
 }

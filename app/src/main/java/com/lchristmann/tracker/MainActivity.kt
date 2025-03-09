@@ -33,7 +33,7 @@ import androidx.navigation.compose.rememberNavController
 import com.lchristmann.tracker.screens.HomeScreen
 import com.lchristmann.tracker.screens.LocationsScreen
 import com.lchristmann.tracker.screens.MapScreen
-import com.lchristmann.tracker.ui.theme.TrackerTheme
+import com.lchristmann.tracker.ui.theme.ContrastAwareTrackerTheme
 
 data class BottomNavigationItem(
     val title: String,
@@ -49,7 +49,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController() // Initialize NavController
 
-            TrackerTheme {
+            ContrastAwareTrackerTheme {
                 val items = listOf(
                     BottomNavigationItem(
                         title = "Locations",
@@ -96,7 +96,8 @@ class MainActivity : ComponentActivity() {
                                                 } else item.unselectedIcon,
                                                 contentDescription = item.title
                                             )
-                                        })
+                                        }
+                                    )
                                 }
                             }
                         }

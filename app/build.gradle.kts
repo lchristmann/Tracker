@@ -100,4 +100,7 @@ dependencies {
 
     // LiveData
     implementation(libs.androidx.lifecycle.livedata.ktx)
+
+    // Material Design 3
+    implementation(libs.material)
 }
