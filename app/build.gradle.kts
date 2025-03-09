@@ -69,6 +69,7 @@ dependencies {
 
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.play.services.location)
+    implementation(libs.androidx.runtime.livedata)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -91,5 +92,12 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
 
+    // OpenStreetMaps Android library
     implementation(libs.osmdroid.android)
+
+    // // Jetpack Compose Navigation
+    implementation(libs.androidx.navigation.compose)
+
+    // LiveData
+    implementation(libs.androidx.lifecycle.livedata.ktx)
 }

@@ -6,7 +6,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
 
-class LocationViewModel(application: Application): AndroidViewModel(application) {
+class TrackingViewModel(application: Application): AndroidViewModel(application) {
 
     private val _isTracking = mutableStateOf(false)
     val isTracking: State<Boolean> = _isTracking
