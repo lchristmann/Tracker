@@ -1,4 +1,4 @@
-package com.lchristmann.tracker
+package com.lchristmann.tracker.screens
 
 import android.app.Application
 import android.content.Context.MODE_PRIVATE

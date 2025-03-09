@@ -30,6 +30,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.lchristmann.tracker.screens.HomeScreen
+import com.lchristmann.tracker.screens.LocationsScreen
+import com.lchristmann.tracker.screens.MapScreen
 import com.lchristmann.tracker.ui.theme.TrackerTheme
 
 data class BottomNavigationItem(

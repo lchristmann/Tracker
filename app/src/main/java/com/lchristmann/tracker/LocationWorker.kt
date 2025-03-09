@@ -9,6 +9,13 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.lchristmann.tracker.api.LocationUploadRequest
+import com.lchristmann.tracker.api.TrackerApiService
+import com.lchristmann.tracker.data.LocationData
+import com.lchristmann.tracker.data.LocationDatabase
+import com.lchristmann.tracker.data.LocationRepository
+import com.lchristmann.tracker.data.toEntity
+import com.lchristmann.tracker.utils.LocationUtils
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.coroutines.resume

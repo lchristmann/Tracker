@@ -1,10 +1,13 @@
-package com.lchristmann.tracker
+package com.lchristmann.tracker.screens
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.lchristmann.tracker.data.LocationDatabase
+import com.lchristmann.tracker.data.LocationEntity
+import com.lchristmann.tracker.data.LocationRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

@@ -30,13 +30,40 @@ The database part is implemented with the recommended [Room database persistency
 
 ![App Architecture](app-architecture.drawio.svg)
 
+## The Directory Structure
+
+The classes displayed in above architecture diagram are organized into a proper folder structure:
+
+```text
+.
+├── api
+│   ├── LocationUploadRequest.kt
+│   └── TrackerApiService.kt
+├── data
+│   ├── LocationDao.kt
+│   ├── LocationDatabase.kt
+│   ├── LocationData.kt
+│   ├── LocationEntity.kt
+│   └── LocationRepository.kt
+├── LocationWorker.kt
+├── MainActivity.kt
+├── screens
+│   ├── HomeScreen.kt
+│   ├── LocationsScreen.kt
+│   ├── LocationsViewModel.kt
+│   ├── MapScreen.kt
+│   └── TrackingViewModel.kt
+└── utils
+    └── LocationUtils.kt
+```
+
 ## How does the Location Tracking work
 
 The location tracking works by utilizing the [Fused Location Provider API](https://developers.google.com/location-context/fused-location-provider) for Android.
 
 ![Fused Location Provider Funktionsweise](https://heise.cloudimg.io/v7/_www-heise-de_/imgs/18/3/6/9/6/1/2/4/MicrosoftTeams-image__6_-fe0435ee6265148b.png?force_format=avif%2Cwebp%2Cjpeg&org_if_sml=1&q=85&width=610)<br>Image source: heise online Artikel "[50 Jahre Notruf: So ortet die Leitstelle Ihr Mobiltelefon](https://www.heise.de/hintergrund/Notruf-112-So-ortet-die-Leitstelle-Ihr-Mobiltelefon-7490400.html?seite=5)".
 
-As shown by default this uses Google Play Services, but for the de-googled operating system eOS, this is replaced by [MicroG](https://community.e.foundation/t/discover-microg-and-what-it-is-used-for/43418, which is an open source implementation of the Google Play Services.
+As shown by default this uses Google Play Services, but for the de-googled operating system eOS, this is replaced by [MicroG](https://community.e.foundation/t/discover-microg-and-what-it-is-used-for/43418), which is an open source implementation of the Google Play Services.
 
 ## Details
 

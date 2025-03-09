@@ -1,4 +1,4 @@
-package com.lchristmann.tracker
+package com.lchristmann.tracker.data
 
 class LocationRepository(private val locationDao: LocationDao) {
 

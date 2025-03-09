@@ -1,4 +1,4 @@
-package com.lchristmann.tracker
+package com.lchristmann.tracker.data
 
 import androidx.room.Dao
 import androidx.room.Insert

@@ -1,4 +1,4 @@
-package com.lchristmann.tracker
+package com.lchristmann.tracker.utils
 
 import android.Manifest
 import android.content.Context

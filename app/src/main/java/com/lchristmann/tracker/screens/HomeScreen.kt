@@ -1,4 +1,4 @@
-package com.lchristmann.tracker
+package com.lchristmann.tracker.screens
 
 import android.Manifest
 import android.util.Log
@@ -23,6 +23,9 @@ import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import com.lchristmann.tracker.utils.LocationUtils
+import com.lchristmann.tracker.LocationWorker
+import com.lchristmann.tracker.MainActivity
 import java.util.concurrent.TimeUnit
 
 @Composable

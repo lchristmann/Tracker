@@ -1,4 +1,4 @@
-package com.lchristmann.tracker
+package com.lchristmann.tracker.api
 
 data class LocationUploadRequest(
     val timestamp: String,

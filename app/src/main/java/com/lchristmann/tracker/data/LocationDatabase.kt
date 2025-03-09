@@ -1,4 +1,4 @@
-package com.lchristmann.tracker
+package com.lchristmann.tracker.data
 
 import android.content.Context
 import androidx.room.Database

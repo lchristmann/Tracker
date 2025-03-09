@@ -1,5 +1,6 @@
-package com.lchristmann.tracker
+package com.lchristmann.tracker.api
 
+import com.lchristmann.tracker.BuildConfig
 import retrofit2.http.Body
 import retrofit2.http.Headers
 import retrofit2.http.POST
