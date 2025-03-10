@@ -24,7 +24,7 @@ fun InfoBox(title: String, description: String) {
     ElevatedCard(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp), // Add padding around the Card
+            .padding(horizontal = 16.dp), // Add padding around the Card
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp), // Slight elevation to make it stand out
     ) {
         Column(

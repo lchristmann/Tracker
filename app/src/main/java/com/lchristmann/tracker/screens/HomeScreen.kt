@@ -5,11 +5,13 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
@@ -106,8 +108,10 @@ fun HomeScreen() {
     // --------------------------------- The UI of the App ---------------------------------
     Column(modifier = Modifier
         .fillMaxSize()
-        .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally) {
+        .verticalScroll(rememberScrollState())
+        .padding(12.dp, 32.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(24.dp)) {
 
         // Info boxes
         InfoBox(title = "Setup", description = "When prompted, give the app permission to access your location and select 'Allow always'.")
@@ -115,9 +119,7 @@ fun HomeScreen() {
             Start and stop tracking as you like. You can completely close the app and tracking still works.
             Internet is only needed for uploading locations and you can manually upload all via button.
         """.trimIndent())
-        InfoBox(title = "Tracking", description = "When tracking is activated, every +/- 15 minutes your location is stored and if possible uploaded.")
-
-        Spacer(modifier = Modifier.height(48.dp))
+        InfoBox(title = "Tracking", description = "When tracking is activated, every 15 minutes your location is stored and if possible uploaded.")
 
         // If tracking is active, show the "Stop Tracking" button, else show the "Start Tracking" button
         if (viewModel.isTracking.value) {
@@ -126,7 +128,7 @@ fun HomeScreen() {
                     WorkManager.getInstance(context).cancelUniqueWork("LocationTracking")
                     viewModel.stopTracking()
                 },
-                modifier = Modifier.height(56.dp)) { Text(text = "Stop Tracking") }
+                modifier = Modifier.height(72.dp).padding(top = 12.dp)) { Text(text = "Stop Tracking") }
         } else {
             Button(onClick = {
                 if (locationUtils.hasLocationPermission(context) && locationUtils.hasBackgroundLocationPermission(context)) {
@@ -140,10 +142,8 @@ fun HomeScreen() {
                     )
                 }
             },
-            modifier = Modifier.height(56.dp)) { Text(text = "Start Tracking") }
+            modifier = Modifier.height(72.dp).padding(top = 12.dp)) { Text(text = "Start Tracking") }
         }
-
-        Spacer(modifier = Modifier.height(36.dp))
 
         ElevatedButton(onClick = {
             Log.d("MainActivity.kt", "Track once now and upload all locations clicked")
@@ -160,6 +160,8 @@ fun HomeScreen() {
             }
         },
         elevation = ButtonDefaults.elevatedButtonElevation(defaultElevation = 2.dp),
-        modifier = Modifier.height(72.dp)) { Text(text = "Track once now and\nupload all locations") }
+        modifier = Modifier.height(72.dp)) {
+            Text(text = "Track once now and\nupload all locations")
+        }
     }
 }
